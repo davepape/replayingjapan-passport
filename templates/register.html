@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load static %}
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    Welcome to the Replying Japan 2024 passport app
+    </div>
+  </div>
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    [rules go here]
+    </div>
+  </div>
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    Register here to participate in the digital passport game:
+      <form method="POST" action="{% url 'newperson' %}">
+      {% csrf_token %}
+      <input name="yourname" id="yourname" type="text" value="" placeholder="your name" class="form-control">
+      <br>
+      <input name="youremail" id="youremail" type="text" value="" placeholder="your email address" class="form-control">
+      <br>
+      <input type="submit" name="submitter" value="register" class="btn btn-primary">
+      </form>
+    <p>Email addresses will only be used by the conference organizers to notify winners, and will not be shared with anyone else.</p>
+    </div>
+  </div>
+{% endblock %}
