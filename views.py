@@ -34,7 +34,7 @@ def visit(request,id):
     email = request.session.get('email')
     if not email:
         return render(request, 'register.html', {})
-    player = get_object_or_404(Player, name=name)
+    player = get_object_or_404(Player, email=email)
     try:
         visited = PlayerVisited.objects.get(player = player, visitPoint = vp)
     except PlayerVisited.DoesNotExist:
