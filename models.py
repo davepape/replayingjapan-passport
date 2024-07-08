@@ -15,6 +15,7 @@ class Player(models.Model):
 class PlayerVisited(models.Model):
     player = models.ForeignKey(Player, on_delete=models.PROTECT)
     visitPoint = models.ForeignKey(VisitPoint, on_delete=models.PROTECT)
+    when = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.player.name + ': ' + str(self.visitPoint.id)
 
