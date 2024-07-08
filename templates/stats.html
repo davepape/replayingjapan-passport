@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load static %}
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    Replying Japan 2024 passport stats
+    </div>
+  </div>
+{% for p in players %}
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    Player: {{ p.player.name }} {{ p.player.email }}
+    </div>
+  {% for vp in p.visitPoints %}
+    <div class="md-8 text-center p-3">
+    Visited: {{ vp.name }}
+    </div>
+  {% endfor %}
+  </div>
+{% endfor %}
+{% for v in visitPoints %}
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    VisitPoint: {{ v.visitpoint }}
+    </div>
+  {% for p in v.visitors %}
+    <div class="md-8 text-center p-3">
+    Visited by: {{ p.name }}
+    </div>
+  {% endfor %}
+  </div>
+{% endfor %}
+{% endblock %}

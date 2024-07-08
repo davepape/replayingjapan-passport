@@ -13,6 +13,8 @@ class Player(models.Model):
         return self.name
 
 class PlayerVisited(models.Model):
-    player = models.ForeignKey(Player)
-    visitPoint = models.ForeignKey(VisitPoint)
+    player = models.ForeignKey(Player, on_delete=models.PROTECT)
+    visitPoint = models.ForeignKey(VisitPoint, on_delete=models.PROTECT)
+    def __str__(self):
+        return self.player.name + ': ' + str(self.visitPoint.id)
 
