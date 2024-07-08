@@ -3,31 +3,67 @@
 {% load static %}
   <div class="row">
     <div class="md-8 text-center p-3">
-    Replying Japan 2024 passport stats
+    <h1>Replying Japan 2024 passport stats</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    <h2>Players</h2>
     </div>
   </div>
 {% for p in players %}
-  <div class="row">
-    <div class="md-8 text-center p-3">
-    Player: {{ p.player.name }} {{ p.player.email }}
+  <div class="row border p-2">
+    <div class="col">
+    {{ p.player.name }} {{ p.player.email }}
     </div>
-  {% for vp in p.visitPoints %}
-    <div class="md-8 text-center p-3">
-    Visited: {{ vp.name }}
+    <div class="col">
+    {% for vp in p.visitPoints %}
+      <div class="row">
+      Visited: {{ vp.name }}
+      </div>
+    {% endfor %}
     </div>
-  {% endfor %}
   </div>
 {% endfor %}
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    <h2>VisitPoints</h2>
+    </div>
+  </div>
 {% for v in visitPoints %}
-  <div class="row">
-    <div class="md-8 text-center p-3">
-    VisitPoint: {{ v.visitpoint }}
+  <div class="row border p-2">
+    <div class="col">
+    {{ v.visitPoint }}
     </div>
-  {% for p in v.visitors %}
-    <div class="md-8 text-center p-3">
-    Visited by: {{ p.name }}
+    <div class="col">
+    {% for p in v.visitors %}
+      <div class="row">
+      Visited by: {{ p.name }}
+      </div>
+    {% endfor %}
     </div>
-  {% endfor %}
   </div>
 {% endfor %}
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    <h2>Table</h2>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+    <tr>
+      <th>player</th>
+    {% for v in visitPoints %}
+      <th> {{ v.visitPoint }} </th>
+    {% endfor %}
+    </tr>
+    {% for tr in table %}
+      <tr>
+      {% for td in tr %}
+        <td>{{ td }}</td>
+      {% endfor %}
+      </tr>
+    {% endfor %}
+    </table>
+  </div>
 {% endblock %}

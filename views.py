@@ -57,6 +57,16 @@ def stats(request):
         pv = PlayerVisited.objects.filter(visitPoint = vp)
         for i in pv:
             visitorData.append(i.player)
-        visitPointData.append({'visitpoint':vp, 'visitors': visitorData})
-    context = { 'players': playerData, 'visitPoints': visitPointData }
+        visitPointData.append({'visitPoint':vp, 'visitors': visitorData})
+    tableData = []
+    for p in playerData:
+        rowData = [p['player'].name]
+        for vp in visitPointData:
+            if vp['visitPoint'] in p['visitPoints']:
+                val = 'x'
+            else:
+                val = ' '
+            rowData.append(val)
+        tableData.append(rowData)
+    context = { 'players': playerData, 'visitPoints': visitPointData, 'table': tableData }
     return render(request, 'stats.html', context)
