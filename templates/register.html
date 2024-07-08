@@ -14,7 +14,7 @@
   <div class="row">
     <div class="md-8 text-center p-3">
     Register here to participate in the digital passport game:
-      <form method="POST" action="{% url 'newperson' %}">
+      <form method="POST" action="{% url 'newPerson' %}">
       {% csrf_token %}
       <input name="yourname" id="yourname" type="text" value="" placeholder="your name" class="form-control">
       <br>
