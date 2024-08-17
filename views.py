@@ -15,6 +15,11 @@ def index(request):
         return render(request, 'register.html', context)
 
 
+def register(request):
+    context = {}
+    return render(request, 'register.html', context)
+
+
 def newPerson(request):
     name = request.POST.get('yourname','')
     email = request.POST.get('youremail','')
@@ -40,6 +45,11 @@ def visit(request,id):
     except PlayerVisited.DoesNotExist:
         visited = PlayerVisited(player = player, visitPoint = vp)
         visited.save()
+# temporary test version of 'did-you-win' logic:
+    pv = PlayerVisited.objects.filter(player = player)
+    if len(pv) == 3:
+        return HttpResponseRedirect('https://testingreplaying.my.canva.site/digital-passport-victory-page-bonus-page')
+#
     return HttpResponseRedirect(vp.url)
 
 @login_required
@@ -70,3 +80,8 @@ def stats(request):
         tableData.append(rowData)
     context = { 'players': playerData, 'visitPoints': visitPointData, 'table': tableData }
     return render(request, 'stats.html', context)
+
+def visitpoints(request):
+    context = { 'visitPoints': VisitPoint.objects.all() }
+    return render(request, 'visitpoints.html', context)
+

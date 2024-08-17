@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+{% block subtitle %}visitpoints{% endblock %}
+{% block content %}
+{% load static %}
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    <h1>Replying Japan 2024 passport locations</h1>
+    </div>
+  </div>
+  <div class="row border p-2">
+    <div class="col">
+    <table class="table">
+{% for v in visitPoints %}
+    <tr> <td>{{ v.name }}</td><td><a href="{{ v.url }}">{{ v.url }}</a></td></tr>
+{% endfor %}
+    </table>
+    </div>
+  </div>
+{% endblock %}

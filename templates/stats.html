@@ -1,4 +1,5 @@
 {% extends "base_generic.html" %}
+{% block subtitle %}stats{% endblock %}
 {% block content %}
 {% load static %}
   <div class="row">
@@ -27,26 +28,7 @@
 {% endfor %}
   <div class="row">
     <div class="md-8 text-center p-3">
-    <h2>VisitPoints</h2>
-    </div>
-  </div>
-{% for v in visitPoints %}
-  <div class="row border p-2">
-    <div class="col">
-    {{ v.visitPoint }}
-    </div>
-    <div class="col">
-    {% for p in v.visitors %}
-      <div class="row">
-      Visited by: {{ p.name }}
-      </div>
-    {% endfor %}
-    </div>
-  </div>
-{% endfor %}
-  <div class="row">
-    <div class="md-8 text-center p-3">
-    <h2>Table</h2>
+    <h2>Visits</h2>
     </div>
   </div>
   <div class="row">
