@@ -9,11 +9,12 @@
   </div>
   <div class="row">
     <div class="md-8 text-center p-3">
-    [rules go here]
+{% include 'rules.html' %}
     </div>
   </div>
   <div class="row">
     <div class="md-8 text-center p-3">
+    <h2>Register</h2>
     Register here to participate in the digital passport game:
       <form method="POST" action="{% url 'newPerson' %}">
       {% csrf_token %}

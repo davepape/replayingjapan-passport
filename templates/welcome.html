@@ -9,12 +9,12 @@
   </div>
   <div class="row">
     <div class="md-8 text-center p-3">
-    [rules go here]
+    Hello, {{ name }}.  Thank you for participating.
     </div>
   </div>
   <div class="row">
     <div class="md-8 text-center p-3">
-    Hello, {{ name }}.  Thank you for participating.
+{% include 'rules.html' %}
     </div>
   </div>
 {% endblock %}

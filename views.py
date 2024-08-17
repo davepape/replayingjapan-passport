@@ -25,6 +25,7 @@ def newPerson(request):
     email = request.POST.get('youremail','')
     request.session['name'] = name
     request.session['email'] = email
+    request.session['finished'] = False
     try:
         p = Player.objects.get(email=email)
     except Player.DoesNotExist:
@@ -45,14 +46,29 @@ def visit(request,id):
     except PlayerVisited.DoesNotExist:
         visited = PlayerVisited(player = player, visitPoint = vp)
         visited.save()
-# temporary test version of 'did-you-win' logic:
-    pv = PlayerVisited.objects.filter(player = player)
-    if len(pv) == 3:
+    if checkForVictory(request,player):
         return HttpResponseRedirect('https://testingreplaying.my.canva.site/digital-passport-victory-page-bonus-page')
-#
-    return HttpResponseRedirect(vp.url)
+    else:
+        return HttpResponseRedirect(vp.url)
 
-@login_required
+
+def checkForVictory(request,player):
+    if request.session.get('finished'):
+        return False
+    pv = PlayerVisited.objects.filter(player = player)
+    demoCount = 0
+    otherCount = 0
+    for v in pv:
+        if v.visitPoint.id > 12:
+            otherCount += 1
+        else:
+            demoCount += 1
+    if demoCount >= 9 and otherCount >= 2:
+        request.session['finished'] = True
+        return True
+    return False
+
+
 def stats(request):
     playerData = []
     for p in Player.objects.all():
@@ -80,6 +96,35 @@ def stats(request):
         tableData.append(rowData)
     context = { 'players': playerData, 'visitPoints': visitPointData, 'table': tableData }
     return render(request, 'stats.html', context)
+
+@login_required
+def stats_admin(request):
+    playerData = []
+    for p in Player.objects.all():
+        pointData = []
+        pv = PlayerVisited.objects.filter(player = p)
+        for i in pv:
+            pointData.append(i.visitPoint)
+        playerData.append({'player':p, 'visitPoints':pointData})
+    visitPointData = []
+    for vp in VisitPoint.objects.all():
+        visitorData = []
+        pv = PlayerVisited.objects.filter(visitPoint = vp)
+        for i in pv:
+            visitorData.append(i.player)
+        visitPointData.append({'visitPoint':vp, 'visitors': visitorData})
+    tableData = []
+    for p in playerData:
+        rowData = [p['player'].name]
+        for vp in visitPointData:
+            if vp['visitPoint'] in p['visitPoints']:
+                val = 'x'
+            else:
+                val = ' '
+            rowData.append(val)
+        tableData.append(rowData)
+    context = { 'players': playerData, 'visitPoints': visitPointData, 'table': tableData }
+    return render(request, 'stats_admin.html', context)
 
 def visitpoints(request):
     context = { 'visitPoints': VisitPoint.objects.all() }

@@ -8,6 +8,30 @@
     </div>
   </div>
   <div class="row">
+    <div class="md-8 text-center p-3">
+    <h2>Players</h2>
+    </div>
+  </div>
+{% for p in players %}
+  <div class="row border p-2">
+    <div class="col">
+    {{ p.player.name }} {{ p.player.email }}
+    </div>
+    <div class="col">
+    {% for vp in p.visitPoints %}
+      <div class="row">
+      Visited: {{ vp.name }}
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+{% endfor %}
+  <div class="row">
+    <div class="md-8 text-center p-3">
+    <h2>Visits</h2>
+    </div>
+  </div>
+  <div class="row">
     <table class="table">
     <tr>
       <th>player</th>
