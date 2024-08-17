@@ -1,5 +1,6 @@
 __init__.py
 migrations/
+*.swp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
